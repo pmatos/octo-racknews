@@ -171,12 +171,10 @@
 	var recentContributor = false;
 	for(var i = 0; i < contributions.length; i++) {
 	    var commit = contributions[i];
-	    if (commit.date.isBetween(startOfTime, rangeStart)) {
-		isOldContributor = true;
-		break;
-	    }
-	    else if (commit.date.isBetween(rangeStart, rangeEnd))
+	    if (commit.date.isBetween(rangeStart, rangeEnd))
 		recentContributor = true;
+	    if (commit.date.isBetween(startOfTime, rangeStart))
+		isOldContributor = true;
 	}
 	return [recentContributor, recentContributor && !isOldContributor];
     }

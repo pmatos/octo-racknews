@@ -1,4 +1,4 @@
-/* jshint esversion: 6 */
+/* jshint esversion: 8 */
 (function () {
     'use strict';
 
@@ -8,10 +8,7 @@
     
     const Octokit = require('@octokit/rest');
     const octokit = new Octokit({
-	auth: {
-	    username: process.env.GITHUB_USERNAME, 
-	    password: process.env.GITHUB_PASSWORD,
-	},
+	auth: process.env.GITHUB_TOKEN,
 	throttle: {
 	    onRateLimit: (retryAfter, options) => {
 		octokit.log.warn(`Request quota exhausted for request ${options.method} ${options.url}`);

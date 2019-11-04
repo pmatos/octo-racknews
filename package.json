@@ -17,8 +17,8 @@
   },
   "homepage": "https://gitlab.com/racket-news/octo-racknews#readme",
   "dependencies": {
-    "@octokit/plugin-throttling": "^2.6.0",
-    "@octokit/rest": "^16.28.2",
+    "@octokit/plugin-throttling": "^2.7.0",
+    "@octokit/rest": "^16.34.1",
     "moment": "^2.24.0",
     "yargs": "^13.3.0"
   }

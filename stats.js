@@ -119,12 +119,13 @@
 	    });
     }
 
-    function countCommitsMaster(repo, since) {
+    function countCommitsMaster(repo, from, to) {
 	const options = octokit.repos.listCommits.endpoint.merge({	
 	    owner: 'racket',
 	    repo: repo,
 	    sha: 'master',
-	    since: since
+	    since: from,
+	    until: to
 	});
 	return octokit.paginate(options)
 	    .then(c => ({repo: repo, ncommits: c.length}))
@@ -201,7 +202,7 @@
 	console.log(`Contributions by (${contributors.length}):`);
 	contributors.sort().forEach(name => console.log(`* ${name}`));
 
-	console.log(`Of these, ${newContributors.length} are new contributors for 2019:`);
+	console.log(`Of these, ${newContributors.length} are new contributors for 2020:`);
 	newContributors.sort().forEach(name => console.log(`* ${name}`));	    
     }
     
@@ -263,7 +264,7 @@
 		const [inew, iclosed, icurrent] = repoInfo.issues;
 		const [pnew, pclosed, pcurrent] = repoInfo.prs;
 
-		countCommitsMaster(repo, rangeBegin)
+		countCommitsMaster(repo, rangeBegin, rangeEnd)
 		    .then(v => {
 			console.log(`Repo ${repo}`);
 			console.log(`# Commits: ${v.ncommits}`);

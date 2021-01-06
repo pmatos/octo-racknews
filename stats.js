@@ -3,10 +3,12 @@
     'use strict';
 
     var moment = require('moment');
+    var interestingRepos;
     
-    const interestingRepos = ['racket', 'ChezScheme', 'redex', 'typed-racket', 'drracket', 'scribble', 'plot'];
+    // pass as positional arguments
+    // const interestingRepos = ['racket', 'redex', 'typed-racket', 'drracket', 'scribble', 'plot'];
     
-    const Octokit = require('@octokit/rest');
+    const { Octokit } = require('@octokit/rest');
     const octokit = new Octokit({
 	auth: process.env.GITHUB_TOKEN,
 	throttle: {
@@ -55,13 +57,12 @@
 			else
 			    iclosed++;
 		    }
-		    if (moment(i.created_at).isBefore(rangeEnd)) {
-			if (!i.closed_at) {
-			    if ('pull_request' in i)
-				pcurrent++;
-			    else
-				icurrent++;
-			}
+		    if (moment(i.created_at).isBefore(rangeEnd) &&
+                        (i.closed_at === null || moment(i.closed_at).isAfter(rangeEnd))) {
+			if ('pull_request' in i)
+			    pcurrent++;
+			else
+			    icurrent++;
 		    }
 		});
 		return { 'repo': repo,
@@ -239,7 +240,8 @@
 	console.log('Missing month and year as arguments');
 	process.exit(1);
     }
-	
+    interestingRepos = argv._.slice(1);
+    
     console.log(`Analyzing repositories for the month of ${argv.month}, ${argv.year}`);
 
     const monthStr = argv.month < 10 ? `0${argv.month}` : `${argv.month}`;

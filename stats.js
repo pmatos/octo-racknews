@@ -96,7 +96,6 @@
 	    .then(commits => {
 		let data = {};
 		commits.forEach(commit => {
-		    const commitStr = JSON.stringify(commit);
 		    var key;
 		    if (commit.author)
 			key = commit.author.login;

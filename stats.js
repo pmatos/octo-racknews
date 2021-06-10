@@ -202,7 +202,7 @@
 	console.log(`Contributions by (${contributors.length}):`);
 	contributors.sort().forEach(name => console.log(`* ${name}`));
 
-	console.log(`Of these, ${newContributors.length} are new contributors for 2020:`);
+	console.log(`Of these, ${newContributors.length} are new contributors for 2021:`);
 	newContributors.sort().forEach(name => console.log(`* ${name}`));	    
     }
     
